@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import { formatDate } from "../utils/date";
+
+interface Props {
+  activity: CollectionEntry<"activities">;
+}
+
+const { activity } = Astro.props;
+const { title, pubDate, description, category, tags, featuredImage } = activity.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article>
+    <header class="mb-8">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 font-sans text-sm">
+        <span
+          class="rounded border border-subtle px-2 py-0.5 font-medium text-slate-600 dark:text-slate-300"
+        >
+          {category}
+        </span>
+        <time datetime={pubDate.toISOString()} class="text-slate-600 dark:text-slate-400">
+          {formatDate(pubDate)}
+        </time>
+      </div>
+
+      <h1 class="mt-4">{title}</h1>
+      <p class="mt-2 mb-0 text-lg text-slate-600 dark:text-slate-300">{description}</p>
+
+      {
+        featuredImage && (
+          <img
+            src={featuredImage}
+            alt={`Photograph accompanying the dispatch: ${title}`}
+            class="mt-6 w-full rounded-lg border border-subtle"
+            loading="lazy"
+          />
+        )
+      }
+    </header>
+
+    <div class="prose-body">
+      <slot />
+    </div>
+
+    {
+      tags.length > 0 && (
+        <footer class="mt-10 border-t border-subtle pt-4">
+          <ul class="m-0 flex list-none flex-wrap gap-x-3 gap-y-1 p-0">
+            {tags.map((tag) => (
+              <li class="font-mono text-xs text-slate-600 dark:text-slate-400">#{tag}</li>
+            ))}
+          </ul>
+        </footer>
+      )
+    }
+
+    <p class="mt-8 mb-0 font-sans text-sm">
+      <a href="/activities/">&larr; All activities</a>
+    </p>
+  </article>
+</BaseLayout>

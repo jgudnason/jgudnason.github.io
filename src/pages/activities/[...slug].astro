@@ -1,0 +1,21 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+
+export const getStaticPaths = (async () => {
+  const activities = await getCollection("activities");
+
+  return activities.map((activity) => ({
+    params: { slug: activity.id },
+    props: { activity },
+  }));
+}) satisfies GetStaticPaths;
+
+const { activity } = Astro.props;
+const { Content } = await render(activity);
+---
+
+<PostLayout activity={activity}>
+  <Content />
+</PostLayout>

@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import { site } from "../data/site";
+import { themes } from "../data/research";
+
+const featuredThemes = themes.filter((theme) => theme.featured);
+
+const latestActivities = (await getCollection("activities"))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title={site.name}>
+  <section>
+    <h1>{site.name}</h1>
+    <p class="mt-2 font-sans text-lg text-slate-600 dark:text-slate-300">
+      {site.title}, {site.department}<br />
+      {site.institution}
+    </p>
+
+    <p>
+      I research speech signal processing and speech technology: how the voice source can be
+      estimated from recorded speech, what the signal reveals about a speaker's cognitive and
+      mental state, and how recognition and synthesis can be built for languages with limited
+      resources — Icelandic in particular.
+    </p>
+
+    <p class="font-sans text-base">
+      <a href={`mailto:${site.email}`}>{site.email}</a> &middot;
+      <a href="/contact/">Contact and profiles</a> &middot;
+      <a href="/publications/">Publications</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>Featured research</h2>
+    <div class="grid gap-4">
+      {
+        featuredThemes.map((theme) => (
+          <ProjectCard
+            title={theme.title}
+            description={theme.description}
+            tags={theme.topics.slice(0, 3)}
+          />
+        ))
+      }
+    </div>
+    <p class="mt-4 font-sans text-base">
+      <a href="/research/">All research themes, labs and collaborations</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>Latest activities</h2>
+    {
+      latestActivities.length > 0 ? (
+        <>
+          <div>
+            {latestActivities.map((activity) => (
+              <ActivityCard activity={activity} />
+            ))}
+          </div>
+          <p class="mt-4 font-sans text-base">
+            <a href="/activities/">All dispatches and announcements</a>
+          </p>
+        </>
+      ) : (
+        <p>No activities published yet.</p>
+      )
+    }
+  </section>
+</BaseLayout>

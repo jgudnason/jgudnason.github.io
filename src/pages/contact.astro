@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { profiles, site } from "../data/site";
+---
+
+<BaseLayout
+  title="Contact"
+  heading="Contact"
+  intro="Institutional contact details and verified academic profiles."
+  description="Contact details and academic profiles for Jón Guðnason, Department of Engineering, Reykjavik University."
+>
+  <section>
+    <h2 class="mt-0">Institutional address</h2>
+    <address class="font-serif text-[1.0625rem] not-italic">
+      {site.name}<br />
+      {site.title}, {site.department}<br />
+      {site.institution}<br />
+      {site.address}
+    </address>
+
+    <ul class="mt-4">
+      <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li>Phone: <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a></li>
+    </ul>
+
+    <p>
+      Email is the most reliable way to reach me. For student project enquiries, please include a
+      short description of your background and interests — see <a href="/teaching/">Teaching</a> for
+      current project suggestions.
+    </p>
+  </section>
+
+  <section>
+    <h2>Academic profiles</h2>
+    <ul class="list-none p-0">
+      {
+        profiles.map((profile) => (
+          <li class="border-b border-subtle py-3 last:border-b-0">
+            <span class="font-sans font-medium">
+              {profile.url ? (
+                <a href={profile.url} rel="me noopener">
+                  {profile.label}
+                </a>
+              ) : (
+                profile.label
+              )}
+            </span>
+            <span class="block font-sans text-sm text-slate-600 dark:text-slate-400">
+              {profile.description}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

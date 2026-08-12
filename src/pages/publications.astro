@@ -1,0 +1,68 @@
+---
+import { existsSync } from "node:fs";
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PublicationCard from "../components/PublicationCard.astro";
+
+const publications = (await getCollection("publications")).sort(
+  (a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title),
+);
+
+/** Publications grouped by year, newest first. */
+const years = [...new Set(publications.map((entry) => entry.data.year))].sort((a, b) => b - a);
+
+/**
+ * The CV link is only rendered once the PDF is actually in place, so the page
+ * never ships a dead download. Drop the file at public/pdf/cv.pdf to enable it.
+ */
+const cvPath = "/pdf/cv.pdf";
+const hasCv = existsSync(new URL(`./public${cvPath}`, `file://${process.cwd()}/`));
+---
+
+<BaseLayout
+  title="Publications"
+  heading="Publications"
+  intro="Journal articles and conference papers, grouped by year. DOI links resolve to the publisher of record."
+  description="Publications by Jón Guðnason, with DOI links and a downloadable academic CV."
+>
+  <section>
+    <h2 class="mt-0">Curriculum vitae</h2>
+    {
+      hasCv ? (
+        <p>
+          <a href={cvPath}>Download CV (PDF)</a> — full record of positions, funding, supervision
+          and publications.
+        </p>
+      ) : (
+        <p>
+          A complete publication record is available on my{" "}
+          <a href="https://iris.landsbokasafn.is/" rel="noopener">
+            IRIS profile
+          </a>
+          . A downloadable CV will be linked here.
+        </p>
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Papers</h2>
+    {publications.length === 0 && <p>No publications listed yet.</p>}
+    {
+      years.map((year) => (
+        <div class="mt-8">
+          <h3 class="font-mono text-base tracking-wide text-slate-600 dark:text-slate-400">
+            {year}
+          </h3>
+          <div class="mt-3">
+            {publications
+              .filter((entry) => entry.data.year === year)
+              .map((publication) => (
+                <PublicationCard publication={publication} />
+              ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>

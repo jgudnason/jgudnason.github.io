@@ -1,0 +1,42 @@
+---
+title: "Template: dispatch from a research visit"
+pubDate: 2026-08-13
+description: "Placeholder dispatch showing the expected structure of a field note or conference report. Delete or overwrite this file."
+category: "Dispatch"
+tags: ["Conference"]
+---
+
+> **Template file.** Copy it to `src/content/activities/YYYY-MM-DD-title.mdx`, replace the
+> frontmatter and body, then delete this one.
+
+A dispatch reports something concrete: a research visit, a conference talk, a fieldwork session, or
+a lab exchange. Open with what happened and where, then give the substance in one or two short
+sections.
+
+## What was presented
+
+State the work, the venue, and the outcome. Cite papers by DOI rather than by journal homepage,
+for example [10.1109/TASLP.2012.2183367](https://doi.org/10.1109/TASLP.2012.2183367).
+
+## Notes
+
+Keep paragraphs short and use lists where they help scanning:
+
+- One point per line.
+- Parameters and variables in inline code, such as `f0`.
+- One to three tags per post, drawn from the standard set.
+
+## Embedding video
+
+Video is hosted externally and embedded, so the repository stays light. Import the player in the
+frontmatter of the dispatch and use it inline:
+
+```mdx
+import VideoPlayer from "../../components/VideoPlayer.astro";
+
+<VideoPlayer
+  src="https://www.youtube.com/embed/VIDEO_ID"
+  title="Talk recording: title of the presentation"
+  caption="Recording of the keynote, hosted on YouTube."
+/>
+```

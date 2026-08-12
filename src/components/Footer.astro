@@ -1,0 +1,32 @@
+---
+import { linkedProfiles, site } from "../data/site";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t border-subtle">
+  <div
+    class="mx-auto flex max-w-4xl flex-col gap-4 px-6 py-8 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400"
+  >
+    <p class="m-0 font-sans text-sm">
+      &copy; {currentYear} {site.name} &middot; {site.department}, {site.institution}
+    </p>
+
+    <nav aria-label="Academic profiles">
+      <ul class="m-0 flex list-none flex-wrap gap-x-5 gap-y-1 p-0">
+        <li class="font-sans text-sm">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+        </li>
+        {
+          linkedProfiles.map((profile) => (
+            <li class="font-sans text-sm">
+              <a href={profile.url} rel="me noopener">
+                {profile.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</footer>

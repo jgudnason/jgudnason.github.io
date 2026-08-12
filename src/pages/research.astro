@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { themes, affiliations } from "../data/research";
+---
+
+<BaseLayout
+  title="Research"
+  heading="Research"
+  intro="Research themes, lab affiliations, and collaborations in speech signal processing and speech technology."
+  description="Research themes, labs and collaborations of Jón Guðnason: speech signal processing, voice source analysis, and speech recognition and synthesis for Icelandic."
+>
+  <section>
+    <h2>Research themes</h2>
+    {
+      themes.map((theme) => (
+        <div class="mt-6">
+          <h3>{theme.title}</h3>
+          <p>{theme.description}</p>
+          <ul>
+            {theme.topics.map((topic) => (
+              <li>{topic}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Labs and affiliations</h2>
+    <div class="mt-4 grid gap-4">
+      {
+        affiliations.map((affiliation) => (
+          <ProjectCard
+            title={affiliation.title}
+            description={affiliation.description}
+            url={affiliation.url}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>Grants and industry collaboration</h2>
+    <p>
+      Active grants, funded projects and industry collaborations are listed here. This section is
+      reviewed annually.
+    </p>
+    <!--
+      TODO (owner): replace this paragraph with current grants and partners.
+      One entry per project: funder, project title, period, and role.
+    -->
+    <p class="font-sans text-base">
+      For a complete record of funded projects and publications, see my
+      <a href="https://iris.landsbokasafn.is/" rel="noopener">IRIS profile</a>.
+    </p>
+  </section>
+</BaseLayout>

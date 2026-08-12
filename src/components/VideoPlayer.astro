@@ -1,0 +1,38 @@
+---
+/**
+ * Responsive wrapper for externally hosted video (Cloudflare Stream, YouTube),
+ * keeping heavy media out of the repository. Use inside MDX dispatches:
+ *
+ *   import VideoPlayer from "../../components/VideoPlayer.astro";
+ *   <VideoPlayer src="https://www.youtube.com/embed/ID" title="…" caption="…" />
+ */
+interface Props {
+  /** Embed URL (not the watch/share URL). */
+  src: string;
+  /** Accessible name for the player — required for screen readers. */
+  title: string;
+  /** Visible caption describing the clip. */
+  caption?: string;
+}
+
+const { src, title, caption } = Astro.props;
+---
+
+<figure class="my-6">
+  <div class="aspect-video overflow-hidden rounded-lg border border-subtle">
+    <iframe
+      src={src}
+      title={title}
+      class="h-full w-full"
+      loading="lazy"
+      allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-2 font-sans text-sm text-slate-600 dark:text-slate-400">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+
+/**
+ * Course lists and project suggestions are edited directly in this file — audit
+ * before each semester (see docs/OPERATE.md).
+ */
+const courses = [
+  {
+    title: "Signals and Systems",
+    level: "Undergraduate, Engineering",
+    description:
+      "Continuous and discrete time signals, linear systems, Fourier and Laplace analysis, sampling and filtering.",
+  },
+  {
+    title: "Data Mining and Machine Learning",
+    level: "Graduate, Engineering",
+    description:
+      "Supervised and unsupervised learning methods applied to real data, with an emphasis on evaluation and practical modelling.",
+  },
+  {
+    title: "Automatic Speech Recognition",
+    level: "Graduate",
+    description:
+      "Acoustic and language modelling, decoding, and the practical construction of recognition systems for low-resource languages.",
+  },
+  {
+    title: "Text-to-Speech Synthesis",
+    level: "Graduate",
+    description:
+      "Front-end text processing, prosody, vocoding and neural synthesis, with Icelandic as the working language.",
+  },
+];
+
+const projectIdeas = [
+  "Voice source estimation from conversational recordings, evaluated against reference glottal measurements.",
+  "Acoustic markers of cognitive workload in task-based speech.",
+  "Data-efficient speech recognition for a low-resource language or dialect.",
+  "Evaluation methods for Icelandic text-to-speech, including listener studies.",
+];
+---
+
+<BaseLayout
+  title="Teaching"
+  heading="Teaching"
+  intro="Courses, graduate supervision, and project suggestions for prospective students."
+  description="Courses taught by Jón Guðnason at Reykjavik University, graduate supervision, and student project suggestions in speech technology."
+>
+  <section>
+    <h2>Courses</h2>
+    {
+      courses.map((course) => (
+        <div class="mt-6">
+          <h3 class="mb-1">{course.title}</h3>
+          <p class="m-0 font-sans text-sm text-slate-600 dark:text-slate-400">{course.level}</p>
+          <p class="mt-2">{course.description}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Graduate students</h2>
+    <p>
+      I supervise MSc and PhD students working on speech signal processing and speech technology,
+      primarily within the Language and Voice Lab.
+    </p>
+    <!-- TODO (owner): list current students with thesis topic and start year. -->
+  </section>
+
+  <section>
+    <h2>Student projects</h2>
+    <p>
+      The topics below are available as MSc thesis or final-year project work. Each can be scoped
+      to a single semester or extended into a full thesis.
+    </p>
+    <ul>
+      {projectIdeas.map((idea) => <li>{idea}</li>)}
+    </ul>
+    <p>
+      If one of these fits your interests — or if you have a related proposal of your own — email
+      me at <a href={`mailto:${site.email}`}>{site.email}</a> with a short description of your
+      background and what you would like to work on.
+    </p>
+  </section>
+</BaseLayout>

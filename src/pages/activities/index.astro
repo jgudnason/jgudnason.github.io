@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+
+const activities = (await getCollection("activities")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const dispatches = activities.filter((entry) => entry.data.category === "Dispatch");
+const announcements = activities.filter((entry) => entry.data.category === "Announcement");
+---
+
+<BaseLayout
+  title="Activities"
+  heading="Activities"
+  intro="Dispatches from fieldwork, research visits and conferences, plus announcements of grants, talks and publications."
+  description="Dispatches and announcements from Jón Guðnason: research visits, conference reports, grants and talks."
+>
+  {activities.length === 0 && <p>No activities published yet.</p>}
+
+  {
+    announcements.length > 0 && (
+      <section>
+        <h2>Announcements</h2>
+        <div>
+          {announcements.map((activity) => (
+            <ActivityCard activity={activity} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    dispatches.length > 0 && (
+      <section>
+        <h2>Dispatches</h2>
+        <div>
+          {dispatches.map((activity) => (
+            <ActivityCard activity={activity} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
