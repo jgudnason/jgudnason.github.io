@@ -64,7 +64,10 @@ src/
 │   ├── PublicationCard.astro   # Standardized list item for papers with DOI links
 │   ├── ProjectCard.astro       # Visual card for research themes & industry work
 │   ├── ActivityCard.astro      # Preview card for dispatches and announcements
-│   └── VideoPlayer.mdx         # Responsive iframe wrapper for Cloudflare/YouTube video embeds
+│   ├── ThemeToggle.astro       # Light/dark switch, choice persisted in localStorage
+│   └── VideoPlayer.astro       # Responsive iframe wrapper for Cloudflare/YouTube video embeds
+│                               # (.astro, not .mdx — MDX cannot take typed props;
+│                               #  it is imported and used inside .mdx dispatches)
 └── layouts/
     ├── BaseLayout.astro        # HTML head, SEO metadata, global CSS, layout wrapper
     └── PostLayout.astro        # Structured template for long-form dispatches & activities

@@ -3,7 +3,7 @@
 ## 1. Environment & Local VS Code Setup
 
 ### Local Prerequisites
-* **Node.js:** v20+ LTS installed locally.
+* **Node.js:** v22.12 or newer — required by Astro 7 (see `engines` in `package.json`). The exact version used locally and by Cloudflare is pinned in `.node-version` (currently 24.13.0). After changing anything in `package.json`, re-run `npm install` so `package-lock.json` stays in sync, or the Cloudflare build will fail at `npm ci`.
 * **Git:** Initialized in the project root directory and linked to your remote GitHub repository.
 * **Editor:** VS Code with the **Astro** extension and **Continue** AI extension installed.
 
@@ -16,6 +16,9 @@ npm create astro@latest . -- --template minimal
 
 # Add MDX integration for extensible Markdown components
 npx astro add mdx
+
+# Add Tailwind CSS v4 (installs @tailwindcss/vite and src/styles/global.css)
+npx astro add tailwind
 
 # Create documentation directory for CDIO specs
 mkdir -p docs
@@ -35,13 +38,23 @@ Because Cloudflare handles domain routing and hosting for `jongudnason.com`, dep
 ### A. Cloudflare Pages Setup (One-Time)
 1. Log into the **Cloudflare Dashboard** and navigate to **Workers & Pages**.
 2. Select **Create application** > **Pages** > **Connect to Git**.
-3. Select your GitHub repository (`jongudnason-website`).
+3. Select your GitHub repository (`jgudnason/jgudnason.github.io`). The `.github.io` name is a leftover from the GitHub Pages era and is cosmetic under Cloudflare; renaming it is optional.
 4. Set the Build Settings:
    * **Framework preset:** `Astro`
    * **Build command:** `npm run build`
    * **Build output directory:** `dist`
-   * **Node.js Version:** Add an environment variable `NODE_VERSION` = `20`.
-5. Under **Custom Domains**, attach `jongudnason.com` and `[www.jongudnason.com](https://www.jongudnason.com)`. Cloudflare automatically handles SSL/TLS certificates and DNS record binding.
+   * **Node.js Version:** Add an environment variable `NODE_VERSION` = `24.13.0`. Node 20 will fail the build — Astro 7 requires 22.12+. Keep this matched to `.node-version` in the repository: the build image's npm must be the same major version as the npm that generated `package-lock.json`, or `npm ci` rejects the lockfile as out of sync.
+5. **Verify before cutover.** Let the first build finish and open the temporary
+   `*.pages.dev` URL Cloudflare assigns. Check every route, both colour schemes, and
+   the CV link. The live site is untouched at this point — nothing has moved yet.
+6. **Move DNS.** Add `jongudnason.com` as a zone in Cloudflare and repoint the
+   nameservers at the registrar. An apex domain requires Cloudflare-managed DNS.
+   Propagation can take up to 24 hours.
+7. Under **Custom Domains**, attach `jongudnason.com` and `www.jongudnason.com`.
+   Cloudflare handles SSL/TLS certificates and DNS record binding automatically.
+8. **Decommission GitHub Pages.** In the repository's Settings → Pages, remove the
+   custom domain and set the source to `None`, so the two hosts cannot compete for
+   the domain. Afterwards `public/CNAME` is inert and can be deleted.
 
 ### B. Automated Deployment Workflow
 No manual `.github/workflows` files are required. The deployment lifecycle operates automatically:
@@ -70,21 +83,26 @@ No manual `.github/workflows` files are required. The deployment lifecycle opera
 ```javascript
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://jongudnason.com',
   integrations: [mdx()],
+  vite: { plugins: [tailwindcss()] },
 });
 ```
 
-### Content Schema Setup (`src/content/config.ts`)
-Creates compile-time validation for all activities and publications:
+### Content Schema Setup (`src/content.config.ts`)
+Creates compile-time validation for all activities and publications. Astro 7 uses
+the Content Layer API: the config lives at `src/content.config.ts` (not
+`src/content/config.ts`) and each collection declares a loader instead of a `type`.
 
 ```typescript
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const activitiesCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/activities' }),
   schema: z.object({
     title: z.string(),
     pubDate: z.date(),
@@ -96,7 +114,7 @@ const activitiesCollection = defineCollection({
 });
 
 const publicationsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/publications' }),
   schema: z.object({
     title: z.string(),
     authors: z.array(z.string()),

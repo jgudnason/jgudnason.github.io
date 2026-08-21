@@ -31,8 +31,18 @@ jongudnason.com is a professional academic and research homepage built to showca
 ## 6. Technical Architecture & Stack
 * **Build Framework:** Astro (Static Site Generator utilizing MDX for extensible UI components).
 * **Source Control & Content:** Plain Markdown (`.md`) and MDX (`.mdx`) stored directly in the GitHub repository.
-* **Deployment Pipeline:** GitHub Actions automatically building and deploying static assets upon `git push`.
-* **Hosting & Domain:** GitHub Pages routed to custom domain `jongudnason.com` with enforced HTTPS/TLS.
+* **Styling:** Tailwind CSS v4, with design tokens defined in `src/styles/global.css`.
+* **Deployment Pipeline:** Cloudflare Pages builds and deploys automatically on `git push` to `main`. No `.github/workflows` files are used.
+* **Hosting & Domain:** Cloudflare Pages serving custom domain `jongudnason.com` (and `www`) with automatic SSL/TLS.
+
+> **Decision (2026-08-20): Cloudflare Pages, not GitHub Pages.**
+> The site is now built from source rather than served as hand-written HTML, so a
+> build step is required regardless of host. Cloudflare was chosen for one-click
+> rollbacks (`OPERATE.md` §3), per-branch preview URLs that allow a build to be
+> verified before any DNS change, and for keeping course video hosting (§7) in the
+> same account as the site. This supersedes the original GitHub Pages plan and
+> brings §6 into line with `IMPLEMENT.md` §2 and `OPERATE.md` §3, which already
+> assumed Cloudflare.
 
 ## 7. Media & Storage Strategy
 * **Text & Code:** All activity posts, research write-ups, and page content version-controlled inside GitHub.
