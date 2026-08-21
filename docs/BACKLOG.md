@@ -7,7 +7,6 @@ Ordered. Anything under Deferred is a deliberate choice, not an oversight.
 - [ ] Seed `src/content/publications/` with 15–25 selected papers
 - [ ] Drop the current CV PDF at `public/pdf/cv.pdf` to light up the download link
 - [ ] Replace the grants placeholder in `src/pages/research.astro`
-- [ ] Point IRIS links at the person page, not the portal front door
 - [ ] Verify the two lab URLs in `src/data/research.ts`
 
 ## Next

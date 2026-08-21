@@ -25,7 +25,7 @@ export type ProfileLink = {
 export const profiles: ProfileLink[] = [
   {
     label: "IRIS",
-    url: "https://iris.landsbokasafn.is/",
+    url: "https://iris.rais.is/en/persons/j%C3%B3n-gu%C3%B0nason",
     description: "Icelandic Research Information System profile",
   },
   {
