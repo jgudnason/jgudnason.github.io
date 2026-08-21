@@ -31,6 +31,17 @@ npm run dev
 npm run build
 ```
 
+If a deleted or renamed post still appears after a rebuild, Astro's content store
+is stale. Clear it and rebuild:
+
+```bash
+rm -rf node_modules/.astro
+npm run build
+```
+
+Cloudflare builds from a clean checkout and is never affected by this — but it
+does mean a stale local build can disagree with what deploys.
+
 ---
 
 ## 2. Editorial Guidelines & Content Governance
