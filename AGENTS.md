@@ -81,6 +81,11 @@ Hard-won details that are easy to get wrong here.
 Editorial rules for what goes *in* the post — voice, tagging, the pre-publish
 checklist — are in `docs/EDITORIAL.md`.
 
+**The CV is a committed file, not content.** Replace `public/pdf/cv.pdf` in place
+to update it; the public URL never changes. `/publications` checks for that file
+at build time and only renders the download link when it exists, so a missing CV
+degrades to a page without a link rather than a broken download.
+
 ## Deployment
 
 Cloudflare Pages, building on every push to `main`. No `.github/workflows` files
