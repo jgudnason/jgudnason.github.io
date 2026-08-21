@@ -12,7 +12,6 @@ export const site = {
   department: "Department of Engineering",
   institution: "Reykjavik University",
   email: "jg@ru.is",
-  phone: "+354 599 6435",
   address: "Menntavegur 1, 102 Reykjavik, Iceland",
   description:
     "Academic homepage of Jón Guðnason, Professor of Engineering at Reykjavik University — speech signal processing, speech recognition and synthesis, and Icelandic language technology.",
@@ -32,7 +31,7 @@ export const profiles: ProfileLink[] = [
   },
   {
     label: "Google Scholar",
-    url: null,
+    url: "https://scholar.google.com/citations?user=WC-4UtwAAAAJ&hl=en",
     description: "Citations and publication metrics",
   },
   {

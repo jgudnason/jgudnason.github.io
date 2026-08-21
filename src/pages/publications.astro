@@ -3,6 +3,9 @@ import { existsSync } from "node:fs";
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PublicationCard from "../components/PublicationCard.astro";
+import { linkedProfiles } from "../data/site";
+
+const scholar = linkedProfiles.find((profile) => profile.label === "Google Scholar");
 
 const publications = (await getCollection("publications")).sort(
   (a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title),
@@ -47,7 +50,26 @@ const hasCv = existsSync(new URL(`./public${cvPath}`, `file://${process.cwd()}/`
 
   <section>
     <h2>Papers</h2>
-    {publications.length === 0 && <p>No publications listed yet.</p>}
+    {
+      publications.length === 0 && (
+        <p>
+          Selected papers will be listed here. In the meantime, the complete record is on
+          {scholar && (
+            <>
+              {" "}
+              <a href={scholar.url} rel="noopener">
+                Google Scholar
+              </a>{" "}
+              and
+            </>
+          )}{" "}
+          <a href="https://iris.landsbokasafn.is/" rel="noopener">
+            IRIS
+          </a>
+          .
+        </p>
+      )
+    }
     {
       years.map((year) => (
         <div class="mt-8">
