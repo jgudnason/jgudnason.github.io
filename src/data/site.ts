@@ -1,9 +1,8 @@
 /**
  * Site-wide profile data shared by the header, footer, home page and /contact.
  *
- * TODO (owner): fill in the `url` for Google Scholar and ORCID with your real
- * profile IDs. Links with a `null` url are simply not rendered, so the site
- * never ships a broken or guessed profile link.
+ * A profile with a `null` url renders as plain text rather than a link, so an
+ * unverified or not-yet-created profile never ships as a broken link.
  */
 
 export const site = {
@@ -36,7 +35,7 @@ export const profiles: ProfileLink[] = [
   },
   {
     label: "ORCID",
-    url: null,
+    url: "https://orcid.org/0000-0001-6560-5543",
     description: "Persistent researcher identifier",
   },
   {
