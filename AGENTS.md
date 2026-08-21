@@ -58,10 +58,64 @@ Hard-won details that are easy to get wrong here.
   `tailwind.config.js`. Dark mode is a `.dark` class on `<html>` via a custom
   variant; accent and border colours are CSS variables that re-resolve per
   scheme, so prefer `text-accent` / `border-subtle` over `dark:` pairs.
-- **Deployment is Cloudflare Pages**, building on push. See `docs/IMPLEMENT.md`
-  §2 for the setup and cutover order.
+- **`VideoPlayer` is `.astro`, not `.mdx`**, because MDX files cannot take typed
+  props. Import it inside an `.mdx` dispatch and use it there.
 - **Commits are authored by the repository owner alone.** Do not add a
   `Co-Authored-By` trailer for AI assistance, and commit only when asked.
+
+## Publishing content
+
+1. Add a file under `src/content/`:
+   - dispatches and announcements → `src/content/activities/YYYY-MM-DD-title.mdx`
+   - publications → `src/content/publications/YYYY-paper-slug.md`
+
+   The glob loader accepts any filename, so these conventions are held by habit,
+   not by the build. The filename becomes the URL slug for activities.
+2. Fill in the frontmatter defined in `src/content.config.ts`. Copies to start
+   from are in `docs/templates/`.
+3. `npm run dev` to preview at `http://localhost:4321`, or `npm run build` to
+   validate — the build fails on a malformed or incomplete entry rather than
+   shipping it.
+4. Commit and push to `main`. Cloudflare publishes within about a minute.
+
+Editorial rules for what goes *in* the post — voice, tagging, the pre-publish
+checklist — are in `docs/EDITORIAL.md`.
+
+## Deployment
+
+Cloudflare Pages, building on every push to `main`. No `.github/workflows` files
+are used, and none should be added — Cloudflare runs the build.
+
+Live project settings, which must stay in step with the repository:
+
+| Setting | Value |
+| :--- | :--- |
+| Framework preset | `Astro` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| `NODE_VERSION` | must match `.node-version` |
+
+- **Rollback:** Cloudflare keeps every build. Dashboard → Deployments → *Rollback
+  to this deployment*. Faster and safer than a revert commit when a bad build is
+  already live.
+- **DNS and TLS** are managed in the same Cloudflare account, with certificates
+  auto-renewed. The apex and `www` records are bound to the Pages project — treat
+  them as load-bearing and do not edit them by hand.
+
+## Dependency maintenance
+
+Astro sites need little ongoing patching, but check quarterly:
+
+```bash
+npm outdated                    # what has moved on
+npm update                      # patch and minor, within existing ranges
+npm run build                   # must pass before committing
+```
+
+Commit `package.json` and `package-lock.json` together — see the `npm ci` note
+above. Major upgrades (an Astro major, a Tailwind major) deserve their own commit
+and a read of the changelog first; check whether the new version's `engines`
+requires bumping `.node-version` and the matching Cloudflare variable.
 
 ## Documentation
 

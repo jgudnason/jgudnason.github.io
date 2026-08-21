@@ -1,7 +1,7 @@
 /**
  * Research themes, lab affiliations and collaborations.
  *
- * Reviewed annually (see docs/OPERATE.md). Themes marked `featured` appear on
+ * Reviewed annually (see docs/EDITORIAL.md). Themes marked `featured` appear on
  * the home page.
  */
 

@@ -4,9 +4,11 @@ Academic homepage of Jón Guðnason, Professor of Engineering at Reykjavik Unive
 built with [Astro](https://astro.build) and Tailwind CSS, content authored as Markdown/MDX in this
 repository.
 
-The full specification lives in [docs/](docs/): `CONCEIVE.md` (scope), `DESIGN.md` (information
-architecture, visual system, schemas), `IMPLEMENT.md` (setup and deployment), `OPERATE.md`
-(publishing routine and editorial rules).
+Documentation lives in [docs/](docs/): [CHARTER.md](docs/CHARTER.md) (why the site exists, scope,
+design principles), [EDITORIAL.md](docs/EDITORIAL.md) (voice, tagging, pre-publish checklist),
+[DECISIONS.md](docs/DECISIONS.md) (dated decision log), and [BACKLOG.md](docs/BACKLOG.md) (what is
+next). Build mechanics, publishing steps and deployment settings are in
+[AGENTS.md](AGENTS.md).
 
 ## Commands
 
@@ -41,7 +43,7 @@ public/pdf/cv.pdf   # CV download (linked from /publications when present)
 3. Run `npm run build` to validate, then commit and push to `main`.
 
 Editorial rules — tone, tagging (1–3 tags per post), DOI citation, accessibility checks — are in
-[docs/OPERATE.md](docs/OPERATE.md).
+[docs/EDITORIAL.md](docs/EDITORIAL.md).
 
 ## Deployment
 
