@@ -5,7 +5,6 @@ Ordered. Anything under Deferred is a deliberate choice, not an oversight.
 ## Now — the site is live and these gaps are visible
 
 - [ ] Seed `src/content/publications/` with 15–25 selected papers
-- [ ] Drop the current CV PDF at `public/pdf/cv.pdf` to light up the download link
 - [ ] Replace the grants placeholder in `src/pages/research.astro`
 - [ ] Verify the two lab URLs in `src/data/research.ts`
 
