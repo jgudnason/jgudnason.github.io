@@ -17,13 +17,17 @@ const latestActivities = (await getCollection("activities"))
 
 <BaseLayout title={site.name}>
   {/*
-    Identity block. Source order is name → title → portrait → positioning, so on a
-    phone the portrait never precedes the <h1>. From `sm` up, the grid lifts it into
-    a second column beside the name and title only — the positioning paragraph spans
-    the full column, because a portrait beside body text drops the reading measure
-    from ~72 characters to ~49, well under the 60–75 the charter asks for.
+    Identity block — the one section that uses the full page container rather than
+    the reading measure, so it can run a portrait column without squeezing the text.
+    848px of content = 588px text + 40px gap + 220px portrait, which keeps the
+    paragraph at 69-74 characters.
+
+    Source order is name → title → portrait → positioning, so on a phone the
+    portrait never precedes the <h1>.
   */}
-  <section class="sm:grid sm:grid-cols-[minmax(0,1fr)_11.25rem] sm:items-start sm:gap-x-8">
+  <section
+    class="spans-page sm:grid sm:grid-cols-[minmax(0,1fr)_13.75rem] sm:items-start sm:gap-x-10"
+  >
     <div class="sm:col-start-1 sm:row-start-1">
       <h1>{site.name}</h1>
       <p class="mt-2 font-sans text-lg text-slate-600 dark:text-slate-300">
@@ -35,14 +39,14 @@ const latestActivities = (await getCollection("activities"))
     <Image
       src={portrait}
       alt="Jón Guðnason, photographed in the atrium at Reykjavik University."
-      width={180}
-      height={225}
+      width={220}
+      height={275}
       densities={[1, 2]}
       loading="eager"
-      class="my-6 w-[11.25rem] rounded-lg border border-subtle sm:col-start-2 sm:row-start-1 sm:my-0"
+      class="my-6 w-[11.25rem] rounded-lg border border-subtle sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:my-0 sm:w-[13.75rem]"
     />
 
-    <div class="sm:col-span-2 sm:col-start-1 sm:row-start-2">
+    <div class="sm:col-start-1 sm:row-start-2">
       <p>
         I research speech signal processing and speech technology: how the voice source can be
         estimated from recorded speech, what the signal reveals about a speaker's cognitive and

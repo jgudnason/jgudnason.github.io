@@ -14,6 +14,13 @@
 
   /* Reading width for body copy: ~60-75 characters per line (`max-w-reading`) */
   --container-reading: 68ch;
+
+  /*
+    The page container, shared by the header, the footer and `main`, so the whole
+    page has one left edge. Sized so the header's brand and nav stay on one row —
+    they need 770px and wrap below it.
+  */
+  --container-page: 56rem;
 }
 
 /*
@@ -126,6 +133,25 @@
   narrow and quiet on purpose — lists, links and headings only.
 */
 @layer components {
+  /*
+    `main` is as wide as the header, but prose keeps its reading measure against
+    the container's LEFT edge rather than being centred inside it — otherwise the
+    page has two left edges 132px apart. Direct children opt out with
+    `.spans-page`; the home identity block does, to run a portrait column.
+  */
+  .page-body > * {
+    /*
+      `--container-reading` is a container width that included `main`'s px-6.
+      Applied to children inside that padding it would render 48px wider than
+      the measure it was tuned for, so subtract the padding back off.
+    */
+    max-width: calc(var(--container-reading) - 3rem);
+  }
+
+  .page-body > .spans-page {
+    max-width: none;
+  }
+
   .prose-body > * + * {
     margin-top: 1.25rem;
   }
