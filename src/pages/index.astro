@@ -19,7 +19,9 @@ const latestActivities = (await getCollection("activities"))
   {/*
     Identity block. Source order is name → title → portrait → positioning, so on a
     phone the portrait never precedes the <h1>. From `sm` up, the grid lifts it into
-    a second column top-aligned with the <h1>, spanning both text rows.
+    a second column beside the name and title only — the positioning paragraph spans
+    the full column, because a portrait beside body text drops the reading measure
+    from ~72 characters to ~49, well under the 60–75 the charter asks for.
   */}
   <section class="sm:grid sm:grid-cols-[minmax(0,1fr)_11.25rem] sm:items-start sm:gap-x-8">
     <div class="sm:col-start-1 sm:row-start-1">
@@ -35,11 +37,12 @@ const latestActivities = (await getCollection("activities"))
       alt="Jón Guðnason, photographed in the atrium at Reykjavik University."
       width={180}
       height={225}
+      densities={[1, 2]}
       loading="eager"
-      class="my-6 w-[11.25rem] rounded-lg border border-subtle sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:my-0"
+      class="my-6 w-[11.25rem] rounded-lg border border-subtle sm:col-start-2 sm:row-start-1 sm:my-0"
     />
 
-    <div class="sm:col-start-1 sm:row-start-2">
+    <div class="sm:col-span-2 sm:col-start-1 sm:row-start-2">
       <p>
         I research speech signal processing and speech technology: how the voice source can be
         estimated from recorded speech, what the signal reveals about a speaker's cognitive and
