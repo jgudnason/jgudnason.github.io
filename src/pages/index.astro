@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import portrait from "../assets/jon-gudnason-portrait.jpg";
 import ProjectCard from "../components/ProjectCard.astro";
 import ActivityCard from "../components/ActivityCard.astro";
 import { site } from "../data/site";
@@ -14,25 +16,43 @@ const latestActivities = (await getCollection("activities"))
 ---
 
 <BaseLayout title={site.name}>
-  <section>
-    <h1>{site.name}</h1>
-    <p class="mt-2 font-sans text-lg text-slate-600 dark:text-slate-300">
-      {site.title}, {site.department}<br />
-      {site.institution}
-    </p>
+  {/*
+    Identity block. Source order is name → title → portrait → positioning, so on a
+    phone the portrait never precedes the <h1>. From `sm` up, the grid lifts it into
+    a second column top-aligned with the <h1>, spanning both text rows.
+  */}
+  <section class="sm:grid sm:grid-cols-[minmax(0,1fr)_11.25rem] sm:items-start sm:gap-x-8">
+    <div class="sm:col-start-1 sm:row-start-1">
+      <h1>{site.name}</h1>
+      <p class="mt-2 font-sans text-lg text-slate-600 dark:text-slate-300">
+        {site.title}, {site.department}<br />
+        {site.institution}
+      </p>
+    </div>
 
-    <p>
-      I research speech signal processing and speech technology: how the voice source can be
-      estimated from recorded speech, what the signal reveals about a speaker's cognitive and
-      mental state, and how recognition and synthesis can be built for languages with limited
-      resources — Icelandic in particular.
-    </p>
+    <Image
+      src={portrait}
+      alt="Jón Guðnason, photographed in the atrium at Reykjavik University."
+      width={180}
+      height={225}
+      loading="eager"
+      class="my-6 w-[11.25rem] rounded-lg border border-subtle sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:my-0"
+    />
 
-    <p class="font-sans text-base">
-      <a href={`mailto:${site.email}`}>{site.email}</a> &middot;
-      <a href="/contact/">Contact and profiles</a> &middot;
-      <a href="/publications/">Publications</a>
-    </p>
+    <div class="sm:col-start-1 sm:row-start-2">
+      <p>
+        I research speech signal processing and speech technology: how the voice source can be
+        estimated from recorded speech, what the signal reveals about a speaker's cognitive and
+        mental state, and how recognition and synthesis can be built for languages with limited
+        resources — Icelandic in particular.
+      </p>
+
+      <p class="font-sans text-base">
+        <a href={`mailto:${site.email}`}>{site.email}</a> &middot;
+        <a href="/contact/">Contact and profiles</a> &middot;
+        <a href="/publications/">Publications</a>
+      </p>
+    </div>
   </section>
 
   <section>
