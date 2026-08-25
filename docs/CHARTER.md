@@ -52,9 +52,18 @@ The intent of each section, which the navigation alone does not convey:
 
 - **Text and code** are version-controlled in this repository. Activity posts, research
   write-ups, and page content are Markdown or MDX.
-- **Large assets stay out.** HD video, large datasets, and heavy media are hosted externally
-  (Cloudflare, YouTube) and embedded via the `VideoPlayer` component, keeping the repository
-  light and the build fast. A committed PDF such as the CV is the exception, not the pattern.
+- **Images are committed**, to `src/assets/`, where Astro processes them into responsive
+  derivatives at build time. This covers the portrait, research figures, and a photograph per
+  dispatch. Sources are kept web-ready — **≤2000 px on the long edge and ≤500 KB** — which is
+  the line that keeps the repository light rather than any rule against images as such.
+- **Anything heavier stays out**, as does all video regardless of size: HD video, large
+  datasets and full-resolution originals are hosted externally (Cloudflare, YouTube) and
+  embedded via the `VideoPlayer` component. A committed PDF such as the CV is a deliberate
+  exception on the same terms — a modest file with a stable public URL.
+- **The escape hatch, if image volume outgrows the ceiling:** Astro can optimise remote images
+  from an allowlisted domain, so the sources could move to object storage without changing how
+  pages are written. That is the same principle already applied to video, and it is not built
+  today — the rule above is the current one.
 
 ## Design principles
 

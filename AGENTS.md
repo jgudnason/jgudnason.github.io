@@ -63,6 +63,20 @@ Hard-won details that are easy to get wrong here.
 - **Commits are authored by the repository owner alone.** Do not add a
   `Co-Authored-By` trailer for AI assistance, and commit only when asked.
 
+### Images
+
+- **Astro processes images from `src/` at build time**, on Cloudflare's clean
+  clone of the repository. So anything an `<Image>` imports has to be committed:
+  a file sitting in a local-only directory cannot feed the build, and the build
+  fails rather than skipping it.
+- **`src/assets/` holds web-ready sources only — ≤2000px, ≤500KB.** Masters, in
+  the sense of full-resolution camera files, stay in the photo library and are
+  never committed. They are not build inputs, and a git repository is the wrong
+  place to back them up: the bytes stay in history permanently even after a
+  later deletion.
+- **`dist/` derivatives are generated**, and already gitignored. Never commit
+  them.
+
 ## Publishing content
 
 1. Add a file under `src/content/`:
