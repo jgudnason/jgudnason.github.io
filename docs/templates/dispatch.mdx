@@ -4,6 +4,10 @@ pubDate: 2026-08-13
 description: "Placeholder dispatch showing the expected structure of a field note or conference report. Delete or overwrite this file."
 category: "Dispatch"
 tags: ["Conference"]
+# Optional photograph. featuredImageAlt is required whenever featuredImage is set.
+# featuredImage: "./recording-session.jpg"
+# featuredImageAlt: "A microphone array on a stand facing a seated speaker in a sound-treated room."
+# featuredImageCaption: "Recording session at the Language and Voice Lab, March 2026."
 ---
 
 > **Template file.** Copy it to `src/content/activities/YYYY-MM-DD-title.mdx`, replace the
@@ -25,6 +29,28 @@ Keep paragraphs short and use lists where they help scanning:
 - One point per line.
 - Parameters and variables in inline code, such as `f0`.
 - One to three tags per post, drawn from the standard set.
+
+## Adding a photograph
+
+A dispatch may carry one photograph, set in frontmatter rather than in the body. Three fields:
+
+- **`featuredImage`** — a path to the file, resolved relative to this post. Put it beside the
+  post (`./recording-session.jpg`) or in `src/assets/`. It must be committed: Astro processes
+  images at build time, on a clean clone, so a file that exists only on your machine fails the
+  build rather than being skipped.
+- **`featuredImageAlt`** — **required whenever `featuredImage` is set**, and the build fails
+  without it. Describe what is in the frame for someone who cannot see it: *"A microphone array
+  on a stand facing a seated speaker"*, not *"photo from the session"*.
+- **`featuredImageCaption`** — optional, rendered under the image. Factual: what it is and
+  where. *"Recording session at the Language and Voice Lab, March 2026"*, not *"great week with
+  the team"*.
+
+Astro emits `webp` and a `srcset` from the source, so commit a **web-ready** file — 2000px on
+the long edge and 500KB are the ceilings. Full-resolution camera originals stay in your photo
+library; they are not build inputs, and git keeps every byte forever.
+
+Photographs of the *thing* — the rig, the room, the poster, the screen — do more work here than
+a posed group shot, unless the post is about the group.
 
 ## Embedding video
 

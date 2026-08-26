@@ -8,14 +8,33 @@ import { glob } from "astro/loaders";
 
 const activities = defineCollection({
   loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/activities" }),
-  schema: z.object({
-    title: z.string(),
-    pubDate: z.coerce.date(),
-    description: z.string(),
-    category: z.enum(["Dispatch", "Announcement"]),
-    tags: z.array(z.string()).max(3).default([]),
-    featuredImage: z.string().optional(),
-  }),
+  /*
+    The `image()` helper resolves the path relative to the entry file and hands
+    Astro real image metadata, so the build knows the intrinsic dimensions and
+    can emit webp and a srcset. A plain string would ship the file untouched.
+  */
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string(),
+        pubDate: z.coerce.date(),
+        description: z.string(),
+        category: z.enum(["Dispatch", "Announcement"]),
+        tags: z.array(z.string()).max(3).default([]),
+        featuredImage: image().optional(),
+        featuredImageAlt: z.string().optional(),
+        featuredImageCaption: z.string().optional(),
+      })
+      /*
+        EDITORIAL.md requires descriptive alt text on every image. Enforcing it
+        here means a missing description fails the build, rather than relying on
+        whoever writes the post to remember.
+      */
+      .refine((data) => !data.featuredImage || Boolean(data.featuredImageAlt), {
+        message:
+          "featuredImageAlt is required whenever featuredImage is set. Describe what is in the frame.",
+        path: ["featuredImageAlt"],
+      }),
 });
 
 const publications = defineCollection({

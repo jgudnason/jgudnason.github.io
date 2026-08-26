@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 import { formatDate } from "../utils/date";
 
@@ -8,7 +9,16 @@ interface Props {
 }
 
 const { activity } = Astro.props;
-const { title, pubDate, description, category, tags, featuredImage } = activity.data;
+const {
+  title,
+  pubDate,
+  description,
+  category,
+  tags,
+  featuredImage,
+  featuredImageAlt,
+  featuredImageCaption,
+} = activity.data;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -30,12 +40,22 @@ const { title, pubDate, description, category, tags, featuredImage } = activity.
 
       {
         featuredImage && (
-          <img
-            src={featuredImage}
-            alt={`Photograph accompanying the dispatch: ${title}`}
-            class="mt-6 w-full rounded-lg border border-subtle"
-            loading="lazy"
-          />
+          <figure class="mt-6">
+            <Image
+              src={featuredImage}
+              /* The schema refuses an image without alt text, so this is set. */
+              alt={featuredImageAlt!}
+              widths={[640, 1280]}
+              sizes="(min-width: 700px) 637px, 100vw"
+              class="w-full rounded-lg border border-subtle"
+              loading="lazy"
+            />
+            {featuredImageCaption && (
+              <figcaption class="mt-2 font-sans text-sm text-slate-600 dark:text-slate-400">
+                {featuredImageCaption}
+              </figcaption>
+            )}
+          </figure>
         )
       }
     </header>
