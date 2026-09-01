@@ -1,0 +1,52 @@
+---
+title: "EUSIPCO 2026: from glottal instants to stroke assessment"
+pubDate: 2026-09-01
+description: "The opening keynote in Bruges argued that speech and acoustic processing is a fresh research area again while machine learning research has gone stale — illustrated, as it happened, with a pipeline resting on an algorithm we published in 2012."
+category: "Dispatch"
+tags: ["Conference", "Speech Processing"]
+featuredImage: "../../assets/naylor-eusipco-keynote.jpg"
+featuredImageAlt: "Patrick Naylor speaking on stage beneath a large projected slide headed 'Glottal Analysis'. The left half of the slide is an anatomical cross-section of the larynx, with the epiglottis, supraglottis, glottis, infraglottis, vocal cords and trachea labelled, and blue arrows tracing airflow up the vocal tract and out through the mouth. The right half lists four steps: using the YAGA algorithm to detect glottal opening and closing instants, extracting ten glottal parameters, correlating them with stroke-related cognitive and clinical assessments, and developing a classification model to evaluate their diagnostic potential."
+featuredImageCaption: "Patrick Naylor's opening keynote at EUSIPCO 2026, Bruges, 1 September 2026. The slide's citation is Thomas, Guðnason and Naylor (2012), the paper behind the YAGA algorithm."
+---
+
+## The argument
+
+Patrick Naylor gave the opening keynote of [EUSIPCO 2026](https://eusipco2026.org/) in Bruges
+this morning, on speech and acoustic signal processing using machine learning.
+
+His argument, in short: speech and audio processing is a fresh research area again. New
+computational methods and new ways of acquiring data are opening questions that looked closed a
+decade ago. Machine learning research itself, by contrast, has gone stale — but applying machine
+learning where data is scarce remains genuinely open.
+
+Both of his examples came from his students' work: assessing brain injury after stroke from a
+patient's voice, and internal learning for speech enhancement.
+
+## Where I stand
+
+This aligns closely with how I think our field should orient itself. The AI revolution has
+produced a great many black boxes that solve already-defined engineering problems. That is
+useful, but our field was never only about solving problems; it was also about understanding the
+world. The science matters, mostly for its own sake — we are humans seeking knowledge — but also
+because unknown engineering problems present themselves as the science progresses.
+
+## From an algorithm to a clinical question
+
+The first of those examples is work I have a hand in, and the slide in the photograph above sets
+out its method: detect glottal opening and closing instants, extract ten glottal parameters,
+correlate those with stroke-related cognitive and clinical assessments, then build a
+classification model to test their diagnostic value.
+
+Step one runs on YAGA, from
+[Thomas, Guðnason and Naylor (2012)](https://doi.org/10.1109/TASL.2011.2157684). The
+glottal strand of that stroke work is
+[Sanguedolce et al. (2025)](https://doi.org/10.21437/Interspeech.2025-2313),
+*Physiologically-Informed Feature Analysis of Acquired Speech Disorders for Stroke Assessment*.
+
+That title is the argument in miniature. The ten glottal parameters carry physiological meaning,
+so a model built on them can be interrogated: one can ask which aspect of phonation changed
+after the stroke, rather than only how confident the classifier is. Fourteen years separate the
+algorithm from the clinical question it is now being asked.
+
+Patrick supervised me as a research student and later as a post-doctoral researcher at Imperial
+College London. Both papers above are joint work with him.
