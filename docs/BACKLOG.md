@@ -16,9 +16,6 @@ Ordered. Anything under Deferred is a deliberate choice, not an oversight.
 
 - [ ] List current graduate students in `src/pages/teaching.astro`
 - [ ] Two or three more activity posts
-- [ ] Render the entry body in `PublicationCard`, or drop the body line from
-      `docs/templates/publication.md` — the card reads frontmatter only, so the body the
-      template invites is currently invisible
 - [ ] Decide how publications without DOIs link out, if at all — six entries are affected and
       all are in the ACL Anthology
 

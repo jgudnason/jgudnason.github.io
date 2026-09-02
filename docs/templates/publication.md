@@ -11,4 +11,5 @@ Placeholder entry that exercises the `publications` schema. Copy this file to
 `src/content/publications/YYYY-paper-slug.md`, fill in the real metadata, uncomment `doi` (and
 `pdfUrl` if a copy is hosted here), then delete this template.
 
-The body is optional and can hold a short summary of the contribution.
+Do not write a body below the frontmatter. `PublicationCard` reads frontmatter only and there is
+no per-publication route, so a body renders nowhere at all.
