@@ -60,15 +60,16 @@ export const affiliations: Affiliation[] = [
     description:
       "Research group at Reykjavik University working on speech and language technology for Icelandic.",
     /*
-      TODO (owner): as of 2026-09-02 this does not resolve. The host is a CNAME
-      to languageandvoice.wordpress.com, which now answers "Private Site", so the
-      custom-domain mapping is dead: the certificate does not cover lvl.ru.is and
-      the URL redirects to WordPress.com's unknown-subdomain page. Either the
-      WordPress site goes public again or this needs a new destination. Until
-      then the entry ships a broken link; dropping `url` renders it as plain
-      text, per the null-URL pattern in `site.ts`.
+      TODO (owner): no `url` as of 2026-09-02, because `lvl.ru.is` stopped
+      resolving. The host is a CNAME to languageandvoice.wordpress.com, which
+      now answers "Private Site", so the custom-domain mapping is dead: the
+      certificate does not cover lvl.ru.is and the URL redirects to
+      WordPress.com's unknown-subdomain page. Expected to be temporary —
+      cadia.is says its labs' individual websites are being migrated to a new
+      setup, and LVL is a CADIA lab. So the entry renders as plain text under
+      the null-URL pattern until the new address is known, and takes a `url`
+      again with a one-line change.
     */
-    url: "https://lvl.ru.is/",
   },
   {
     title: "Center for Analysis and Design of Intelligent Agents (CADIA)",
