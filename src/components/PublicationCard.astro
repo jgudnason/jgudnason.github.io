@@ -11,6 +11,33 @@ const { title, authors, journal, year, doi, pdfUrl } = publication.data;
 
 /** The site owner's own name is emphasised in the author list. */
 const surname = site.name.split(" ").at(-1)!;
+const isOwner = (author: string) => author.includes(surname);
+
+/*
+  Long author lists are truncated here rather than in the frontmatter, which
+  keeps the full list — it is the record, and may one day be fed from
+  `refs.bib`.
+
+  The rule is shaped by one constraint: the owner has to stay visible. On the
+  33-author Science Advances entry he is seventh, so a plain "first five, then
+  et al." would hide him on the very entry where a reader most needs to see he
+  is on it. So: first five, then his name behind an ellipsis if he was not
+  among them, then a count of the rest.
+*/
+const FULL_LIST_LIMIT = 9;
+const LEAD_COUNT = 5;
+
+let shown = authors;
+let ellipsisAt = -1;
+
+if (authors.length > FULL_LIST_LIMIT) {
+  const lead = authors.slice(0, LEAD_COUNT);
+  const owner = lead.some(isOwner) ? undefined : authors.find(isOwner);
+  shown = owner ? [...lead, owner] : lead;
+  ellipsisAt = owner ? LEAD_COUNT : -1;
+}
+
+const othersCount = authors.length - shown.length;
 ---
 
 <article class="border-b border-subtle py-5 first:pt-0 last:border-b-0">
@@ -18,13 +45,15 @@ const surname = site.name.split(" ").at(-1)!;
 
   <p class="m-0 font-sans text-sm text-slate-700 dark:text-slate-300">
     {
-      authors.map((author, index) => (
+      shown.map((author, index) => (
         <>
-          <span class:list={[author.includes(surname) && "font-semibold"]}>{author}</span>
-          {index < authors.length - 1 && ", "}
+          {index === ellipsisAt && "\u2026 "}
+          <span class:list={[isOwner(author) && "font-semibold"]}>{author}</span>
+          {index < shown.length - 1 && ", "}
         </>
       ))
     }
+    {othersCount > 0 && `, and ${othersCount} others`}
   </p>
 
   <p class="mt-1 mb-0 font-sans text-sm text-slate-600 italic dark:text-slate-400">

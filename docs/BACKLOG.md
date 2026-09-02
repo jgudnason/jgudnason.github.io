@@ -21,8 +21,6 @@ Ordered. Anything under Deferred is a deliberate choice, not an oversight.
       template invites is currently invisible
 - [ ] Decide how publications without DOIs link out, if at all — six entries are affected and
       all are in the ACL Anthology
-- [ ] Truncate long author lists at render time — one entry has 33 authors, which reads against
-      the low-visual-noise principle in `CHARTER.md`
 
 ## Deferred
 
