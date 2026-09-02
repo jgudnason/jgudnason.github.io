@@ -54,23 +54,33 @@ export type Affiliation = {
   url?: string;
 };
 
-/** TODO (owner): confirm the two lab URLs below resolve before launch. */
 export const affiliations: Affiliation[] = [
   {
     title: "Language and Voice Lab",
     description:
       "Research group at Reykjavik University working on speech and language technology for Icelandic.",
+    /*
+      TODO (owner): as of 2026-09-02 this does not resolve. The host is a CNAME
+      to languageandvoice.wordpress.com, which now answers "Private Site", so the
+      custom-domain mapping is dead: the certificate does not cover lvl.ru.is and
+      the URL redirects to WordPress.com's unknown-subdomain page. Either the
+      WordPress site goes public again or this needs a new destination. Until
+      then the entry ships a broken link; dropping `url` renders it as plain
+      text, per the null-URL pattern in `site.ts`.
+    */
     url: "https://lvl.ru.is/",
   },
   {
     title: "Center for Analysis and Design of Intelligent Agents (CADIA)",
     description:
       "Reykjavik University research centre for artificial intelligence and intelligent agents.",
-    url: "https://cadia.ru.is/",
+    /* `cadia.ru.is` 301s here; link the canonical domain, not the redirect. */
+    url: "https://cadia.is/",
   },
   {
     title: "Icelandic Language Resources",
     description:
       "Open datasets, models and tools supporting Icelandic language technology.",
+    url: "https://github.com/icelandic-lt",
   },
 ];

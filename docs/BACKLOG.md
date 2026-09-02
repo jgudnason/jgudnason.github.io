@@ -5,7 +5,9 @@ Ordered. Anything under Deferred is a deliberate choice, not an oversight.
 ## Now — the site is live and these gaps are visible
 
 - [ ] Replace the grants placeholder in `src/pages/research.astro`
-- [ ] Verify the two lab URLs in `src/data/research.ts`
+- [ ] Find a working destination for the Language and Voice Lab link in
+      `src/data/research.ts` — `lvl.ru.is` stopped resolving (the WordPress.com site
+      behind it is private), so the entry currently ships a broken link
 - [ ] Verify three author names flagged during the publications seed —
       `2021-talromur-tts-corpus.md` (two) and
       `2022-cognitive-workload-cardiovascular-voice.md` (one)
