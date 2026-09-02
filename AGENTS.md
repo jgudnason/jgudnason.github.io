@@ -60,6 +60,14 @@ Hard-won details that are easy to get wrong here.
   scheme, so prefer `text-accent` / `border-subtle` over `dark:` pairs.
 - **`VideoPlayer` is `.astro`, not `.mdx`**, because MDX files cannot take typed
   props. Import it inside an `.mdx` dispatch and use it there.
+- **A newline between a text node and an element eats the space** in `.astro`
+  templates. JSX collapses the break, so `see my` on its own line before an
+  `<a>` renders as "see myIRIS profile", and `&middot;` before one renders as
+  "·Contact". Write the space explicitly with the `{" "}` idiom at the end of
+  the text line — see `src/pages/publications.astro:41`. `npm run build` does
+  not catch this class at all: the markup is valid, only the prose is wrong.
+  After building, `grep -roE '[a-zA-Z,;:]<a href' dist/` should come back
+  empty.
 - **Commits are authored by the repository owner alone.** Do not add a
   `Co-Authored-By` trailer for AI assistance, and commit only when asked.
 
