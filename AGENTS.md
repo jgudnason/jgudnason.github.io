@@ -70,6 +70,17 @@ Hard-won details that are easy to get wrong here.
   empty.
 - **Commits are authored by the repository owner alone.** Do not add a
   `Co-Authored-By` trailer for AI assistance, and commit only when asked.
+- **`origin/main` moves without this tree pushing.** The owner pushes from the
+  desktop, so commits made here reach the remote by that route. A branch that is
+  suddenly less far ahead is that, not a second writer — and authorship cannot
+  tell the two apart, because of the rule above.
+- **A stranded `.git/index.lock` is the Cowork session, not a rival writer.**
+  Its shell runs in a VM that mounts this folder and is barred from deleting
+  files, so a plain `git status` there can take the lock and then fail to unlink
+  it. It never stages, commits, or writes to `.git`, so a stranded lock costs a
+  stall, never work. It now runs with `GIT_OPTIONAL_LOCKS=0` and leaves none. If
+  one turns up anyway: zero bytes and no git process running means delete it and
+  carry on. No investigation needed.
 
 ### Images
 
