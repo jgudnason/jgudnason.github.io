@@ -93,6 +93,14 @@ Hard-won details that are easy to get wrong here.
   never committed. They are not build inputs, and a git repository is the wrong
   place to back them up: the bytes stay in history permanently even after a
   later deletion.
+- **Photographs are prepared before they enter `src/assets/`.** Resize to
+  ≤2000px on the long edge and ≤500KB, bake in any EXIF orientation tag so the
+  raw pixels sit the right way up, and strip all metadata. Phone originals
+  routinely carry GPS coordinates and device identifiers, and the committed
+  source keeps them in git history permanently even though Astro's `dist/`
+  derivatives do not. Every image now in `src/assets/` already meets this, in
+  the working tree and throughout history — this writes down existing practice
+  rather than changing it.
 - **`dist/` derivatives are generated**, and already gitignored. Never commit
   them.
 
