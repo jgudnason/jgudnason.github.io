@@ -1,0 +1,52 @@
+---
+title: "EUSIPCO 2026: one pitch period per frame"
+pubDate: 2026-09-04
+description: "Guolin Fang presented our work on setting analysis frames from glottal closure instants rather than a fixed clock, and on the speech features that fall out of it."
+category: "Dispatch"
+tags: ["Conference", "Speech Processing"]
+featuredImage: "../../assets/guolin-fang-poster-session.jpg"
+featuredImageAlt: "Guolin Fang mid-explanation, one hand raised, talking to two attendees at the EUSIPCO 2026 poster session; the attendees are seen from behind in the foreground. His poster, 'Dynamic Frame Length for Speech Spectral Magnitude Features', is on the display board to the right, showing the problem statement, waveform plots and time-frequency tiling diagrams."
+featuredImageCaption: "Guolin Fang presenting the work at the Speech Analysis and Synthesis poster session, EUSIPCO 2026, Bruges, 4 September 2026."
+---
+
+## The idea
+
+If you want the Fourier coefficients of a periodic signal, you should analyse exactly one period
+of it. Classical speech processing does not. It cuts the signal into fixed-length frames and
+accepts the windowing and zero-padding distortion that follows. The convention is settled enough
+that it is rarely examined.
+
+In this paper we set the extent of each frame from the glottal closure instants, so that a frame
+spans one pitch period. The frequency representation that results is free of distortion from
+windowing and zero-padding.
+
+The fix brings its own problem. Periods differ in length, so the Fourier coefficient vectors do
+too, and the machinery downstream expects a feature of fixed size. We interpolate the
+coefficient magnitudes onto a common length and use that as the speech feature.
+
+Evaluated on phone classification, the dynamic frames reach 47.3% at a resampled frame duration
+of 6 ms. The fixed-frame baseline reaches 46.8%, and needs 24 ms to get there — the same
+accuracy from a quarter of the time-support.
+
+## At the poster
+
+Guolin had a steady stream of visitors, and the experimental design drew as much comment as the
+method itself — every feature set is fed to an identical classifier, so that nothing but the
+features differs between conditions.
+
+This was the last session of the conference, so attendance was lower than at the start.
+Nevertheless, interest in the session was much stronger than I had expected.
+
+## Three generations on one paper
+
+Guolin Fang, my PhD student at Reykjavík University, presented the work in the Speech Analysis
+and Synthesis poster session; I chaired it.
+The paper is joint with Mike Brookes at Imperial College London — my own PhD advisor, and a
+collaborator ever since — and Lauri Juvela at Aalto University.
+
+The instants themselves come from YAGA, in
+[Thomas, Guðnason and Naylor (2012)](https://doi.org/10.1109/TASL.2011.2157684) — the same
+algorithm that appeared on Monday's keynote slide as the front end of a stroke assessment
+pipeline, which I wrote about [earlier this week](/activities/2026-09-01-eusipco-keynote-naylor/).
+Here it decides where a frame begins and ends. Two unrelated jobs for one piece of signal
+processing, both on show at the same conference.
