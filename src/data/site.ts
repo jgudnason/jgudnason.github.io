@@ -20,9 +20,23 @@ export type ProfileLink = {
   label: string;
   url: string | null;
   description: string;
+  /** Set false to keep a profile out of the footer nav — see `footerProfiles`. */
+  footer?: boolean;
 };
 
 export const profiles: ProfileLink[] = [
+  {
+    label: "Reykjavik University staff page",
+    url: "https://staff.ru.is/jg/",
+    description: "Institutional record of my academic post",
+    /*
+      Contact page only. The footer states the affiliation in its own line and
+      links the institution there, so a second, labelled staff-page link in the
+      profile nav would both repeat that target and push browsing visitors
+      toward the less-maintained of the two sites.
+    */
+    footer: false,
+  },
   {
     label: "IRIS",
     url: "https://iris.rais.is/en/persons/j%C3%B3n-gu%C3%B0nason",
@@ -49,6 +63,9 @@ export const profiles: ProfileLink[] = [
 export const linkedProfiles = profiles.filter(
   (profile): profile is ProfileLink & { url: string } => profile.url !== null,
 );
+
+/** The linked profiles the footer nav shows — all but those marked `footer: false`. */
+export const footerProfiles = linkedProfiles.filter((profile) => profile.footer !== false);
 
 export const navItems = [
   { href: "/", label: "Home" },

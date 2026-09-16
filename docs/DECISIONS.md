@@ -6,6 +6,34 @@ old ones, supersede them instead.
 
 ---
 
+## 2026-09-16 — The RU staff page is linked quietly, from the footer affiliation
+
+`staff.ru.is/jg/` now links here, and the return links are in place: the institution name in the
+site-wide footer carries the link, and the Contact page's Academic profiles list gains an entry.
+
+The footer affiliation was chosen because of who the link is for. The reader who needs it is
+verifying in an official capacity that the post is real — a funding-proposal reviewer, a
+government assessor, departmental staff — and that reader looks where institutional identity is
+asserted. The footer is the only affiliation statement that appears on every page. The homepage
+identity block and the Contact address state the same affiliation, but linking all three reads
+heavy and repeats one target three times, so they stay plain text.
+
+The link also has to stay quiet, because this site is the better maintained of the two and a
+general visitor sent to the staff page is worse off. Unadorned institutional text satisfies both
+readers at once: the verifier finds it where they already look, the browser passes over it. No
+new element, no labelled call-to-action.
+
+That last point is why the Contact entry sets `footer: false` (a new optional field on
+`ProfileLink`). `profiles` feeds both the Contact list and the footer's profile nav, so adding
+the entry put a labelled "Reykjavik University staff page" link in the footer of every page —
+exactly the call-to-action this decision rules out, and a second link to a target the same
+footer already carries.
+
+`https://staff.ru.is/jg/` is written with the scheme as given. RU serves the page over both
+http and https; https answers 200 with a valid certificate, so there is no reason to downgrade.
+
+---
+
 ## 2026-08-22 — Corpus papers are publications; dataset deposits are not
 
 The publications list includes peer-reviewed papers about speech corpora — Almannarómur,

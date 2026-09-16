@@ -1,5 +1,5 @@
 ---
-import { linkedProfiles, site } from "../data/site";
+import { footerProfiles, site } from "../data/site";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -9,7 +9,8 @@ const currentYear = new Date().getFullYear();
     class="mx-auto flex max-w-page flex-col gap-4 px-6 py-8 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between dark:text-slate-400"
   >
     <p class="m-0 font-sans text-sm">
-      &copy; {currentYear} {site.name} &middot; {site.department}, {site.institution}
+      &copy; {currentYear} {site.name} &middot; {site.department},{" "}
+      <a href="https://staff.ru.is/jg/" rel="noopener">{site.institution}</a>
     </p>
 
     <nav aria-label="Academic profiles">
@@ -18,7 +19,7 @@ const currentYear = new Date().getFullYear();
           <a href={`mailto:${site.email}`}>{site.email}</a>
         </li>
         {
-          linkedProfiles.map((profile) => (
+          footerProfiles.map((profile) => (
             <li class="font-sans text-sm">
               <a href={profile.url} rel="me noopener">
                 {profile.label}
