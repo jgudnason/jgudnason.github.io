@@ -6,6 +6,25 @@ old ones, supersede them instead.
 
 ---
 
+## 2026-09-16 — The home page identity block links the staff page as well
+
+Supersedes the decision below to leave the home page identity block as plain text. The
+affiliation under the name on `/` now links to `https://staff.ru.is/jg/`, the same target and
+the same unadorned treatment as the footer.
+
+The earlier reasoning against it was that linking every affiliation statement repeats one target
+and reads heavy. That still rules out the third instance — the Contact page's institutional
+address stays plain — but it undervalued where a verifier actually arrives. Someone checking the
+post in an official capacity is given the domain, not a deep link, so they land on `/` and read
+the identity block under the name before anything else. That is the primary institutional
+assertion on the site, and it was the one place the link was missing.
+
+The block is written inline in `src/pages/index.astro`, not in a shared component, so this
+affects the home page alone. The Contact page's `<address>` is a separate copy of the same
+three fields and does not follow.
+
+---
+
 ## 2026-09-16 — The RU staff page is linked quietly, from the footer affiliation
 
 `staff.ru.is/jg/` now links here, and the return links are in place: the institution name in the
